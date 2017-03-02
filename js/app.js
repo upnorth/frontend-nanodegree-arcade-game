@@ -15,10 +15,21 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if(this.x>5*67)
+    if(this.x>8*67)
         this.x=-100;
-    else
-        this.x += dt*80;
+    else{
+        switch(this.y){
+            case 3*83-190:
+                this.x += dt*250;
+                break;
+            case 4*83-190:
+                this.x += dt*170;
+                break;
+            case 5*83-190:
+                this.x += dt*120;
+                break;
+        }
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -69,6 +80,7 @@ player.prototype.reset = function(){
     this.y = 1*6*65;
 }
 player.prototype.update = function(){
+
     player.render();
 };
 player.prototype.render = function(){
