@@ -20,16 +20,24 @@ Enemy.prototype.update = function(dt) {
     else{
         switch(this.y){
             case 3*83-190:
-                this.x += dt*250;
+                this.x += dt*450;
                 break;
             case 4*83-190:
-                this.x += dt*170;
+                this.x += dt*250;
                 break;
             case 5*83-190:
-                this.x += dt*120;
+                this.x += dt*350;
                 break;
         }
     }
+    // Check collission
+    allEnemies.forEach(function(enemy){
+        if(player.x-enemy.x<171/5 && player.y-enemy.y<101/7){
+            console.log("Died  " + ++player.resurrected + " times...");
+            console.log("x diff:"+ (player.x-enemy.x)+" y diff:"+(player.y-enemy.y));
+            player.reset();
+        }
+    })
 };
 
 // Draw the enemy on the screen, required method for game
@@ -45,6 +53,8 @@ var player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 3*67;
     this.y = 6*65;
+    this.score = 0;
+    this.resurrected = 0;
 };
 
 player.prototype.handleInput = function(key){
@@ -57,6 +67,7 @@ player.prototype.handleInput = function(key){
             if(this.y>1){
                 if(this.y<120){
                     player.reset();
+                    console.log("Yay! Got over " + ++player.score + " times now!");
                     break;
                 }
                 this.y -= 85;
@@ -74,6 +85,7 @@ player.prototype.handleInput = function(key){
             break;
     };
     player.update();
+    player.render();
 };
 player.prototype.reset = function(){
     this.x = 1*5*40;
@@ -81,7 +93,6 @@ player.prototype.reset = function(){
 }
 player.prototype.update = function(){
 
-    player.render();
 };
 player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
