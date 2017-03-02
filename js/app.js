@@ -2,7 +2,7 @@
 var Enemy = function(y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = 1;
+    this.x = -100;
     this.y = y*83-190;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -15,7 +15,10 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x;
+    if(this.x>5*67)
+        this.x=-100;
+    else
+        this.x += dt*80;
 };
 
 // Draw the enemy on the screen, required method for game
